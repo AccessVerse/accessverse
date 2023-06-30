@@ -5,8 +5,8 @@ type Props = {};
 const MainImage = (props: Props) => {
   return (
     <Image
-      src="/images/main.png"
-      alt="Ashutosh's main image"
+      src="/main.png"
+      alt="main"
       className="animate-spin-slow"
       height={200}
       width={200}
