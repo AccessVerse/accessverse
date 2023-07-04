@@ -10,7 +10,7 @@ import TechStack from 'components/Home/TechStack';
 
 function Home() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full items-center">
       <HomeNav />
       <Hero />
       <About />
