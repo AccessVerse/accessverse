@@ -1,13 +1,20 @@
 import { Button } from 'antd';
-import { blogURL, docsURL, goToAppURL } from 'config/data';
+import { appName, blogURL, docsURL, goToAppURL } from 'config/data';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 
 function HomeNav() {
   return (
-    <nav className="sm:sticky top-5 z-20 bg-[#1F232C] w-[90%] sm:w-[80%] backdrop-filter backdrop-blur-lg bg-opacity-30 border border-[#505050] firefox:bg-opacity-90 text-white rounded-xl m-5">
+    <nav className="sm:sticky w-full max-w-7xl top-5 z-20 bg-[#1F232C] backdrop-filter backdrop-blur-lg bg-opacity-30 border border-[#505050] firefox:bg-opacity-90 text-white rounded-xl m-5">
       <div className="flex items-center justify-between h-16 mx-auto px-4">
-        <a href="/" target="_self">
-          <img src="/logo.png" alt="sbg" width={60} height={60} />
+        <a href="/" className="flex items-center text-2xl">
+          <img
+            src="/logo.png"
+            alt="sbg"
+            width={60}
+            height={60}
+            className="object-contain"
+          />
+          {appName}
         </a>
 
         <section className="flex items-center text-lg space-x-4 text-white z-10">
