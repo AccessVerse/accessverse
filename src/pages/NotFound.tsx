@@ -7,17 +7,18 @@ function NotFound() {
   const navigate = useNavigate();
 
   return (
-    <div className="container flex-col h-[100vh] cthemebg">
-      <h1 className="text-4xl ctext font-bold">Page not found</h1>
+    <div className="w-screen h-screen flex flex-col justify-center items-center">
+      <img src="/src/assets/404.svg" alt="404" />
 
-      <Button
-        className="container m-8 w-max ctransition"
-        size="large"
-        onClick={() => navigate(routes.HOME())}
-        icon={<AiOutlineHome className="mr-2" />}
-      >
-        Back to home
-      </Button>
+      <div className="flex flex-col justify-center items-center m-8">
+        <p>Aww Snap... It&apos;s a 404!</p>
+        <Button
+          className="text-white my-4"
+          onClick={() => navigate(routes.HOME)}
+        >
+          Back to home
+        </Button>
+      </div>
     </div>
   );
 }
