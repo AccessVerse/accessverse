@@ -6,7 +6,7 @@ function HomeNav() {
   return (
     <nav className="sm:sticky w-full max-w-7xl top-5 z-20 bg-[#1F232C] backdrop-filter backdrop-blur-lg bg-opacity-30 border border-[#505050] firefox:bg-opacity-90 text-white rounded-xl m-5">
       <div className="flex items-center justify-between h-16 mx-auto px-4">
-        <a href="/" className="flex items-center text-2xl">
+        <a href="/" className="flex items-center">
           <img
             src="/logo.png"
             alt="sbg"
@@ -14,7 +14,7 @@ function HomeNav() {
             height={60}
             className="object-contain"
           />
-          {appName}
+          <span className="text-2xl font-semibold">{appName}</span>
         </a>
 
         <section className="flex items-center text-lg space-x-4 text-white z-10">

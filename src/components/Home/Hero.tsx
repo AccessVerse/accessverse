@@ -1,10 +1,14 @@
 import { Button } from 'antd';
 import ScrollButton from 'components/common/ScrollButton';
-import { blockchainName, goToAppURL, heroSecondary } from 'config/data';
+import { blockchainName, heroSecondary } from 'config/data';
+import routes from 'config/routes';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { LiaEthereum } from 'react-icons/lia';
+import { useNavigate } from 'react-router-dom';
 
 function Hero() {
+  const navigate = useNavigate();
+
   return (
     <div className="h-[85vh] w-[70%] sm:w-[70%] md:w-[60%] flex flex-col justify-center items-center">
       <h1 className="text-4xl sm:text-5xl text-center font-bold tracking-wider z-10">
@@ -23,8 +27,7 @@ function Hero() {
         type="primary"
         size="large"
         className="bg-[#1573FE] flex items-center justify-center mt-8 text-lg px-5 shadow-[#1573fe5c] shadow-xl z-10"
-        href={goToAppURL}
-        target="_blank"
+        onClick={() => navigate(routes.DASHBOARD)}
       >
         Go to app
         <AiOutlineArrowRight />
