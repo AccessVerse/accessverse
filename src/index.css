@@ -17,8 +17,10 @@
 
 body {
   margin: 0;
-  font-family: Lato, sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   letter-spacing: 0.2px;
+  background-color: #0d0a1c;
+  color: aliceblue;
 }
 
 * {
