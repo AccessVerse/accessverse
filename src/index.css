@@ -19,7 +19,8 @@ body {
   margin: 0;
   font-family: 'Ubuntu', sans-serif;
   letter-spacing: 0.2px;
-  background-color: #0d0a1c;
+  /* background-color: #0d0a1c; */
+  background-color: #0d0a1d;
   color: aliceblue;
 }
 
@@ -82,4 +83,10 @@ a {
   60% {
     transform: translateY(-15px);
   }
+}
+
+video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
 }

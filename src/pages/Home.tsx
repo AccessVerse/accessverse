@@ -1,3 +1,4 @@
+import VideoBG from 'components/common/VideoBG';
 import About from 'components/Home/About';
 import Connect from 'components/Home/Connect';
 import Ecosystem from 'components/Home/Ecosystem';
@@ -10,7 +11,7 @@ import TechStack from 'components/Home/TechStack';
 
 function Home() {
   return (
-    <div className="flex flex-col w-full items-center scroll-smooth">
+    <div className="flex flex-col w-full items-center scroll-smooth relative">
       <HomeNav />
       <Hero />
       <About />
@@ -20,6 +21,7 @@ function Home() {
       <Team />
       <Connect />
       <Footer />
+      <VideoBG />
     </div>
   );
 }
