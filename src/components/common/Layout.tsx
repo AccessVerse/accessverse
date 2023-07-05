@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 
 import SideNav from './SideNav';
-import TopNav from './TopNav';
 
 type Props = {
   page: string;
@@ -14,7 +13,13 @@ function Layout({ children, page }: Props) {
       <SideNav />
 
       <div className="flex flex-col w-full h-screen">
-        <TopNav page={page} />
+        <div className="w-full h-[8vh] border-b border-gray-800 p-4 flex items-center justify-between">
+          <span className="border border-gray-500 px-4 py-1 rounded-lg select-none text-[#1673fe]">
+            {page}
+          </span>
+
+          <span>Connect Wallet / Wallet Details</span>
+        </div>
         {children}
       </div>
     </div>
