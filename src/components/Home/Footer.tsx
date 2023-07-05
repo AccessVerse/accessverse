@@ -11,7 +11,7 @@ function Footer() {
   };
 
   return (
-    <div className="flex mt-10 w-screen justify-around items-center z-10 border">
+    <div className="flex mt-10 w-screen justify-around items-center z-10">
       <div>
         <img src="/logo.png" alt="main logo" height={200} width={200} />
       </div>
