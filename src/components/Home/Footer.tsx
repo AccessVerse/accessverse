@@ -1,10 +1,19 @@
-import main from '../../assets/main.png';
+import { Button, Input } from 'antd';
+import { useState } from 'react';
 
 function Footer() {
+  const [inputVal, setInputVal] = useState<string>('');
+
+  const onEmailSubmit = () => {
+    // TODO: send email id to api
+    setInputVal('');
+    // TODO: show a toast
+  };
+
   return (
-    <div className="flex mt-10 w-screen justify-around items-center">
+    <div className="flex mt-10 w-screen justify-around items-center z-10 border">
       <div>
-        <img src={main} alt="main logo" height={200} width={200} />
+        <img src="/logo.png" alt="main logo" height={200} width={200} />
       </div>
       <div className="flex flex-col">
         <a href="/">BLOG</a>
@@ -20,10 +29,23 @@ function Footer() {
       </div>
       <div>
         <p className="mb-4">Join our mailing list for updates</p>
-        <input type="text" className="pl-4 pt-2 pb-2" />
-        <button type="button" className="bg-white text-[#1F232C] p-2">
-          Get updates
-        </button>
+        <div className="flex h-max">
+          <Input
+            placeholder="Email"
+            className="h-max"
+            allowClear
+            value={inputVal}
+            style={{ width: '240px' }}
+            onChange={(event) => setInputVal(event.target.value)}
+          />
+          <Button
+            type="ghost"
+            className="bg-white text-[#1F232C] text-sm"
+            onClick={onEmailSubmit}
+          >
+            Get updates
+          </Button>
+        </div>
       </div>
     </div>
   );
