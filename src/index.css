@@ -35,6 +35,46 @@ a {
   text-decoration: none;
 }
 
+@layer components {
+  .container {
+    @apply flex justify-center items-center;
+  }
+
+  /* app wide transition */
+  .ctransition {
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  /* app wide custom scrollbar */
+  .cscrollbar {
+    @apply scrollbar-thin scrollbar-thumb-[#999] scrollbar-thumb-rounded;
+  }
+
+  .cbutton {
+    @apply bg-clight text-cdark dark:bg-cdark dark:text-clight dark:border-cgray;
+  }
+
+  .cpbutton {
+    @apply bg-[#1677ff] hover:bg-[#4096ff] text-white border-none hover:text-white !important;
+  }
+
+  .cpbutton[disabled] {
+    @apply bg-[#ccc6] text-[#999] !important;
+  }
+
+  .ctext {
+    @apply text-cdark dark:text-clight;
+  }
+
+  .cborder {
+    @apply border-solid border-clgray dark:border-cgray;
+  }
+
+  .chover {
+    @apply hover:bg-chgray dark:hover:bg-chdark;
+  }
+}
+
 .glow {
   -webkit-animation: glow 1.5s ease-in-out infinite alternate;
   -moz-animation: glow 1.5s ease-in-out infinite alternate;
@@ -47,21 +87,6 @@ a {
   }
   to {
     text-shadow: 0 0 3px #fff, 0 0 6px #afdfff;
-  }
-}
-
-@layer utilities {
-  @variants responsive {
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-
-    /* Hide scrollbar for IE, Edge and Firefox */
-    .no-scrollbar {
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
-    }
   }
 }
 

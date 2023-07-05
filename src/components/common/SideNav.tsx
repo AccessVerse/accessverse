@@ -1,5 +1,5 @@
 import { Button } from 'antd';
-import { appName } from 'config/data';
+import { appName, semanticVersion } from 'config/data';
 import routes from 'config/routes';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,10 +8,10 @@ function SideNav() {
 
   return (
     <div className="flex flex-col h-screen w-[20vw] border-r border-gray-500">
-      <div className="flex justify-start items-center h-[8vh]">
+      <div className="flex justify-center items-center h-[8vh]">
         <button
           type="button"
-          className="flex items-center"
+          className="flex items-center justify-center m-2 px-2 h-full w-full"
           onClick={() => navigate(routes.DASHBOARD)}
         >
           <img
@@ -21,7 +21,12 @@ function SideNav() {
             height={60}
             className="object-contain"
           />
-          <span className="text-2xl font-semibold">{appName}</span>
+          <div className="flex flex-col">
+            <span className="text-2xl font-semibold pt-2">{appName}</span>
+            <span className="text-white text-xs bg-blue-500 w-max self-end px-1 rounded-lg">
+              {semanticVersion}
+            </span>
+          </div>
         </button>
       </div>
 
