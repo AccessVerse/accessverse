@@ -38,11 +38,7 @@ function Footer() {
             style={{ width: '240px' }}
             onChange={(event) => setInputVal(event.target.value)}
           />
-          <Button
-            type="ghost"
-            className="bg-white text-[#1F232C] text-sm"
-            onClick={onEmailSubmit}
-          >
+          <Button className="text-white text-sm" onClick={onEmailSubmit}>
             Get updates
           </Button>
         </div>
