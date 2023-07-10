@@ -3,6 +3,8 @@ import Blog from 'pages/Blog';
 import Blogs from 'pages/Blogs';
 import Dashboard from 'pages/Dashboard';
 import Docs from 'pages/Docs';
+import Event from 'pages/Event';
+import Events from 'pages/Events';
 import Feed from 'pages/Feed';
 import Home from 'pages/Home';
 import NotFound from 'pages/NotFound';
@@ -20,6 +22,8 @@ function App() {
         <Route path={routes.SETTINGS} element={<Settings />} />
         <Route path={routes.BLOG} element={<Blog />} />
         <Route path={routes.BLOGS} element={<Blogs />} />
+        <Route path={routes.EVENT} element={<Event />} />
+        <Route path={routes.EVENTS} element={<Events />} />
         <Route path={routes.DOCS} element={<Docs />} />
         <Route path={routes.FEED} element={<Feed />} />
         <Route path="*" element={<NotFound />} />

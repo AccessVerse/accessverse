@@ -3,6 +3,7 @@ import { appName, semanticVersion } from 'config/data';
 import routes from 'config/routes';
 import { CgFeed, CgProfile } from 'react-icons/cg';
 import { FiSettings } from 'react-icons/fi';
+import { MdOutlineEventAvailable } from 'react-icons/md';
 import { RiFilePaper2Line } from 'react-icons/ri';
 import { RxDashboard } from 'react-icons/rx';
 import { TfiWrite } from 'react-icons/tfi';
@@ -18,6 +19,11 @@ const sections = [
         route: routes.DASHBOARD,
       },
       {
+        name: 'Events',
+        logo: <MdOutlineEventAvailable />,
+        route: routes.EVENTS,
+      },
+      {
         name: 'Feed',
         logo: <CgFeed />,
         route: routes.FEED,
@@ -29,7 +35,7 @@ const sections = [
       },
       {
         name: 'Docs',
-        logo: <RiFilePaper2Line />,
+        logo: <RiFilePaper2Line size={20} />,
         route: routes.DOCS,
       },
     ],
