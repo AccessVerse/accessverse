@@ -1,0 +1,5 @@
+type User @createModel(accountRelation: SINGLE, description:"User profile"){
+    did: DID! @documentAccount
+    name: String! @string(minLength: 2, maxLength: 50)
+    email: String! @string(minLength: 2, maxLength: 50)
+}

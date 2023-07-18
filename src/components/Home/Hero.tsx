@@ -1,13 +1,42 @@
+import { EthereumWebAuth, getAccountId } from '@didtools/pkh-ethereum';
 import { Button } from 'antd';
 import ScrollButton from 'components/common/ScrollButton';
 import { blockchainName, heroSecondary } from 'config/data';
-import routes from 'config/routes';
+// import { useNavigate } from 'react-router-dom';
+import { DIDSession } from 'did-session';
+// import routes from 'config/routes';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { LiaEthereum } from 'react-icons/lia';
-import { useNavigate } from 'react-router-dom';
+
+import compose from '../../client-objects/composeClient';
 
 function Hero() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const wallectConnect = async () => {
+    try {
+      const ethProvider = window.ethereum;
+      const addresses = await ethProvider.request({
+        method: 'eth_requestAccounts',
+      });
+      const accountId = await getAccountId(ethProvider, addresses[0]);
+      const authMethod = await EthereumWebAuth.getAuthMethod(
+        ethProvider,
+        accountId
+      );
+
+      const session = await DIDSession.authorize(authMethod, {
+        resources: compose.resources,
+      });
+
+      if (session) {
+        compose.setDID(session.did);
+        localStorage.setItem('session', JSON.stringify(session));
+        console.log('compose client: ', compose.did);
+      }
+    } catch (error) {
+      console.log('Inside connectWallet - ', error);
+    }
+  };
 
   return (
     <div className="h-[85vh] w-[70%] sm:w-[70%] md:w-[60%] flex flex-col justify-center items-center">
@@ -27,7 +56,8 @@ function Hero() {
         type="primary"
         size="large"
         className="bg-[#1573FE] flex items-center justify-center mt-8 text-lg px-5 shadow-[#1573fe5c] shadow-xl z-10"
-        onClick={() => navigate(routes.DASHBOARD)}
+        // onClick={() => navigate(routes.DASHBOARD)}
+        onClick={wallectConnect}
       >
         Go to app
         <AiOutlineArrowRight />

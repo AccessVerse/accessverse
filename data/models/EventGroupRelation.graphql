@@ -1,0 +1,8 @@
+type EventRelation @loadModel(id: "kjzl6hvfrbw6casjt7lcrqcq5z85ppdoy5jidznninvgdvgqqx4xoayo64fxmqz") {
+  id: ID!
+}
+
+type Group @loadModel(id: "kjzl6hvfrbw6c82wzf8mznpcg96qdddo77wfpaxb29pc9yo3n4168bo2ri36lpw") 
+{
+  events: [EventRelation] @relationFrom(model: "EventRelation", property: "groupID")
+}

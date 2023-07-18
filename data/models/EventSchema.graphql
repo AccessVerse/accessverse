@@ -1,0 +1,9 @@
+type Event @createModel(accountRelation: LIST, description: "Event model"){
+    creator: DID! @documentAccount
+    name: String! @string(minLength: 2, maxLength: 50)
+    description: String! @string(minLength: 2, maxLength: 200)
+    creationDate: DateTime!
+    status: Int!
+    DateTime: DateTime!
+    UserLimit: Int!
+}

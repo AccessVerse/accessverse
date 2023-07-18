@@ -35,5 +35,6 @@ module.exports = {
     'react/require-default-props': 0,
     'react/no-array-index-key': 0, // TODO: array index as key
     '@typescript-eslint/ban-ts-comment': 0, // TODO: minimize use of @ts-ignore
+    "sort-imports": ["error", { "ignoreCase": true, "ignoreDeclarationSort": true }],
   },
 };
