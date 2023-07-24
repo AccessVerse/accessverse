@@ -1,5 +1,6 @@
 import { Button } from 'antd';
-import { appName, blogURL, docsURL, goToAppURL } from 'config/data';
+import { appName, blogURL, docsURL } from 'config/data';
+import wallectConnect from 'config/walletConnect';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 
 function HomeNav() {
@@ -36,8 +37,7 @@ function HomeNav() {
             type="primary"
             ghost
             className="flex items-center text-base font-semibold mx-4"
-            href={goToAppURL}
-            target="_blank"
+            onClick={wallectConnect}
           >
             Get Started
             <AiOutlineArrowRight />
