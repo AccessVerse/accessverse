@@ -1,6 +1,8 @@
+#unused
 type Group @createModel(accountRelation: LIST, description: "Group model"){
     creator: DID! @documentAccount
     name: String! @string(minLength: 2, maxLength: 50)
     description: String! @string(minLength: 2, maxLength: 200)
     creationDate: DateTime!
+    cost: Int!
 }

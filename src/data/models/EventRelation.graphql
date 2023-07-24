@@ -8,6 +8,7 @@ type Group @loadModel(id: "kjzl6hvfrbw6c82wzf8mznpcg96qdddo77wfpaxb29pc9yo3n4168
     id: ID!
 }
 
+#unused
 type EventRelation @createModel(accountRelation: LIST, description: "Relate an Event to a Group")
 {
     eventId: StreamID! @documentReference(model: "Event")

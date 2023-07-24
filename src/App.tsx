@@ -1,6 +1,7 @@
 import routes from 'config/routes';
 import Blog from 'pages/Blog';
 import Blogs from 'pages/Blogs';
+import CreateProfile from 'pages/CreateProfile';
 import Dashboard from 'pages/Dashboard';
 import Docs from 'pages/Docs';
 import Event from 'pages/Event';
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path={routes.HOME} element={<Home />} />
         <Route path={routes.DASHBOARD} element={<Dashboard />} />
+        <Route path={routes.CREATEPROFILE} element={<CreateProfile />} />
         <Route path={routes.PROFILE} element={<Profile />} />
         <Route path={routes.SETTINGS} element={<Settings />} />
         <Route path={routes.BLOG} element={<Blog />} />

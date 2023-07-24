@@ -7,45 +7,6 @@ type Query {
 
   """Account currently authenticated on the Ceramic instance, if set"""
   viewer: CeramicAccount
-  eventIndex(
-    """Returns the items in the list that come after the specified cursor."""
-    after: String
-
-    """Returns the first n items from the list."""
-    first: Int
-
-    """Returns the items in the list that come before the specified cursor."""
-    before: String
-
-    """Returns the last n items from the list."""
-    last: Int
-  ): EventConnection
-  eventRelationIndex(
-    """Returns the items in the list that come after the specified cursor."""
-    after: String
-
-    """Returns the first n items from the list."""
-    first: Int
-
-    """Returns the items in the list that come before the specified cursor."""
-    before: String
-
-    """Returns the last n items from the list."""
-    last: Int
-  ): EventRelationConnection
-  groupIndex(
-    """Returns the items in the list that come after the specified cursor."""
-    after: String
-
-    """Returns the first n items from the list."""
-    first: Int
-
-    """Returns the items in the list that come before the specified cursor."""
-    before: String
-
-    """Returns the last n items from the list."""
-    last: Int
-  ): GroupConnection
   userIndex(
     """Returns the items in the list that come after the specified cursor."""
     after: String
@@ -59,6 +20,32 @@ type Query {
     """Returns the last n items from the list."""
     last: Int
   ): UserConnection
+  eventIndex(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+  ): EventConnection
+  userEventIndex(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+  ): UserEventConnection
 }
 
 """An object with an ID"""
@@ -75,6 +62,7 @@ type CeramicAccount implements Node {
   Whether the Ceramic instance is currently authenticated with this account or not
   """
   isViewer: Boolean!
+  user: User
   eventList(
     """Returns the items in the list that come after the specified cursor."""
     after: String
@@ -88,7 +76,7 @@ type CeramicAccount implements Node {
     """Returns the last n items from the list."""
     last: Int
   ): EventConnection
-  eventRelationList(
+  userEventList(
     """Returns the items in the list that come after the specified cursor."""
     after: String
 
@@ -100,21 +88,17 @@ type CeramicAccount implements Node {
 
     """Returns the last n items from the list."""
     last: Int
-  ): EventRelationConnection
-  groupList(
-    """Returns the items in the list that come after the specified cursor."""
-    after: String
+  ): UserEventConnection
+}
 
-    """Returns the first n items from the list."""
-    first: Int
+type User implements Node {
+  id: ID!
+  name: String!
+  email: String!
+  balance: Int!
 
-    """Returns the items in the list that come before the specified cursor."""
-    before: String
-
-    """Returns the last n items from the list."""
-    last: Int
-  ): GroupConnection
-  user: User
+  """Account controlling the document"""
+  did: CeramicAccount!
 }
 
 """A connection to a list of items."""
@@ -152,10 +136,15 @@ type EventEdge {
 
 type Event implements Node {
   id: ID!
+  city: String!
+  cost: Int!
+  mode: Int!
   name: String!
+  venue: String!
   status: Int!
-  DateTime: DateTime!
-  UserLimit: Int!
+  dateTime: DateTime!
+  maxLimit: Int!
+  attendees: [EventAttendee]
   description: String!
   creationDate: DateTime!
 
@@ -168,86 +157,36 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+type EventAttendee {
+  user: String!
+  status: Int!
+}
+
 """A connection to a list of items."""
-type EventRelationConnection {
+type UserEventConnection {
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
   """A list of edges."""
-  edges: [EventRelationEdge]
+  edges: [UserEventEdge]
 }
 
 """An edge in a connection."""
-type EventRelationEdge {
+type UserEventEdge {
   """The item at the end of the edge"""
-  node: EventRelation
+  node: UserEvent
 
   """A cursor for use in pagination"""
   cursor: String!
 }
 
-type EventRelation implements Node {
+type UserEvent implements Node {
   id: ID!
-  eventId: CeramicStreamID!
-  groupId: CeramicStreamID!
-  event: Event
-  group: Group
-}
-
-"""A Ceramic Stream ID"""
-scalar CeramicStreamID @specifiedBy(url: "https://github.com/ceramicnetwork/CIP/blob/main/CIPs/CIP-59/CIP-59.md#streamid")
-
-type Group implements Node {
-  id: ID!
-  name: String!
-  description: String!
-  creationDate: DateTime!
+  event: ID!
+  status: Int!
 
   """Account controlling the document"""
-  creator: CeramicAccount!
-  events(
-    """Returns the items in the list that come after the specified cursor."""
-    after: String
-
-    """Returns the first n items from the list."""
-    first: Int
-
-    """Returns the items in the list that come before the specified cursor."""
-    before: String
-
-    """Returns the last n items from the list."""
-    last: Int
-
-    """Returns only documents created by the provided account"""
-    account: ID
-  ): EventRelationConnection!
-}
-
-"""A connection to a list of items."""
-type GroupConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [GroupEdge]
-}
-
-"""An edge in a connection."""
-type GroupEdge {
-  """The item at the end of the edge"""
-  node: Group
-
-  """A cursor for use in pagination"""
-  cursor: String!
-}
-
-type User implements Node {
-  id: ID!
-  name: String!
-  email: String!
-
-  """Account controlling the document"""
-  did: CeramicAccount!
+  attendee: CeramicAccount!
 }
 
 """A connection to a list of items."""
@@ -269,181 +208,12 @@ type UserEdge {
 }
 
 type Mutation {
-  createEvent(input: CreateEventInput!): CreateEventPayload
-  updateEvent(input: UpdateEventInput!): UpdateEventPayload
-  createEventRelation(input: CreateEventRelationInput!): CreateEventRelationPayload
-  updateEventRelation(input: UpdateEventRelationInput!): UpdateEventRelationPayload
-  createGroup(input: CreateGroupInput!): CreateGroupPayload
-  updateGroup(input: UpdateGroupInput!): UpdateGroupPayload
   createUser(input: CreateUserInput!): CreateUserPayload
   updateUser(input: UpdateUserInput!): UpdateUserPayload
-}
-
-type CreateEventPayload {
-  """Fetches an object given its ID"""
-  node(
-    """The ID of an object"""
-    id: ID!
-  ): Node
-
-  """Account currently authenticated on the Ceramic instance, if set"""
-  viewer: CeramicAccount
-  document: Event!
-  clientMutationId: String
-}
-
-input CreateEventInput {
-  content: EventInput!
-  clientMutationId: String
-}
-
-input EventInput {
-  name: String!
-  status: Int!
-  DateTime: DateTime!
-  UserLimit: Int!
-  description: String!
-  creationDate: DateTime!
-}
-
-type UpdateEventPayload {
-  """Fetches an object given its ID"""
-  node(
-    """The ID of an object"""
-    id: ID!
-  ): Node
-
-  """Account currently authenticated on the Ceramic instance, if set"""
-  viewer: CeramicAccount
-  document: Event!
-  clientMutationId: String
-}
-
-input UpdateEventInput {
-  id: ID!
-  content: PartialEventInput!
-  options: UpdateOptionsInput
-  clientMutationId: String
-}
-
-input PartialEventInput {
-  name: String
-  status: Int
-  DateTime: DateTime
-  UserLimit: Int
-  description: String
-  creationDate: DateTime
-}
-
-input UpdateOptionsInput {
-  """
-  Fully replace the document contents instead of performing a shallow merge
-  """
-  replace: Boolean = false
-
-  """Only perform mutation if the document matches the provided version"""
-  version: CeramicCommitID
-}
-
-"""A Ceramic Commit ID"""
-scalar CeramicCommitID @specifiedBy(url: "https://github.com/ceramicnetwork/CIP/blob/main/CIPs/CIP-59/CIP-59.md#commitid")
-
-type CreateEventRelationPayload {
-  """Fetches an object given its ID"""
-  node(
-    """The ID of an object"""
-    id: ID!
-  ): Node
-
-  """Account currently authenticated on the Ceramic instance, if set"""
-  viewer: CeramicAccount
-  document: EventRelation!
-  clientMutationId: String
-}
-
-input CreateEventRelationInput {
-  content: EventRelationInput!
-  clientMutationId: String
-}
-
-input EventRelationInput {
-  eventId: CeramicStreamID!
-  groupId: CeramicStreamID!
-}
-
-type UpdateEventRelationPayload {
-  """Fetches an object given its ID"""
-  node(
-    """The ID of an object"""
-    id: ID!
-  ): Node
-
-  """Account currently authenticated on the Ceramic instance, if set"""
-  viewer: CeramicAccount
-  document: EventRelation!
-  clientMutationId: String
-}
-
-input UpdateEventRelationInput {
-  id: ID!
-  content: PartialEventRelationInput!
-  options: UpdateOptionsInput
-  clientMutationId: String
-}
-
-input PartialEventRelationInput {
-  eventId: CeramicStreamID
-  groupId: CeramicStreamID
-}
-
-type CreateGroupPayload {
-  """Fetches an object given its ID"""
-  node(
-    """The ID of an object"""
-    id: ID!
-  ): Node
-
-  """Account currently authenticated on the Ceramic instance, if set"""
-  viewer: CeramicAccount
-  document: Group!
-  clientMutationId: String
-}
-
-input CreateGroupInput {
-  content: GroupInput!
-  clientMutationId: String
-}
-
-input GroupInput {
-  name: String!
-  description: String!
-  creationDate: DateTime!
-}
-
-type UpdateGroupPayload {
-  """Fetches an object given its ID"""
-  node(
-    """The ID of an object"""
-    id: ID!
-  ): Node
-
-  """Account currently authenticated on the Ceramic instance, if set"""
-  viewer: CeramicAccount
-  document: Group!
-  clientMutationId: String
-}
-
-input UpdateGroupInput {
-  id: ID!
-  content: PartialGroupInput!
-  options: UpdateOptionsInput
-  clientMutationId: String
-}
-
-input PartialGroupInput {
-  name: String
-  description: String
-  creationDate: DateTime
+  createEvent(input: CreateEventInput!): CreateEventPayload
+  updateEvent(input: UpdateEventInput!): UpdateEventPayload
+  createUserEvent(input: CreateUserEventInput!): CreateUserEventPayload
+  updateUserEvent(input: UpdateUserEventInput!): UpdateUserEventPayload
 }
 
 type CreateUserPayload {
@@ -467,6 +237,7 @@ input CreateUserInput {
 input UserInput {
   name: String!
   email: String!
+  balance: Int!
 }
 
 type UpdateUserPayload {
@@ -492,4 +263,137 @@ input UpdateUserInput {
 input PartialUserInput {
   name: String
   email: String
+  balance: Int
+}
+
+input UpdateOptionsInput {
+  """
+  Fully replace the document contents instead of performing a shallow merge
+  """
+  replace: Boolean = false
+
+  """Only perform mutation if the document matches the provided version"""
+  version: CeramicCommitID
+}
+
+"""A Ceramic Commit ID"""
+scalar CeramicCommitID @specifiedBy(url: "https://github.com/ceramicnetwork/CIP/blob/main/CIPs/CIP-59/CIP-59.md#commitid")
+
+type CreateEventPayload {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+
+  """Account currently authenticated on the Ceramic instance, if set"""
+  viewer: CeramicAccount
+  document: Event!
+  clientMutationId: String
+}
+
+input CreateEventInput {
+  content: EventInput!
+  clientMutationId: String
+}
+
+input EventInput {
+  city: String!
+  cost: Int!
+  mode: Int!
+  name: String!
+  venue: String!
+  status: Int!
+  dateTime: DateTime!
+  maxLimit: Int!
+  attendees: [EventAttendeeInput]
+  description: String!
+  creationDate: DateTime!
+}
+
+input EventAttendeeInput {
+  user: String!
+  status: Int!
+}
+
+type UpdateEventPayload {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+
+  """Account currently authenticated on the Ceramic instance, if set"""
+  viewer: CeramicAccount
+  document: Event!
+  clientMutationId: String
+}
+
+input UpdateEventInput {
+  id: ID!
+  content: PartialEventInput!
+  options: UpdateOptionsInput
+  clientMutationId: String
+}
+
+input PartialEventInput {
+  city: String
+  cost: Int
+  mode: Int
+  name: String
+  venue: String
+  status: Int
+  dateTime: DateTime
+  maxLimit: Int
+  attendees: [EventAttendeeInput]
+  description: String
+  creationDate: DateTime
+}
+
+type CreateUserEventPayload {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+
+  """Account currently authenticated on the Ceramic instance, if set"""
+  viewer: CeramicAccount
+  document: UserEvent!
+  clientMutationId: String
+}
+
+input CreateUserEventInput {
+  content: UserEventInput!
+  clientMutationId: String
+}
+
+input UserEventInput {
+  event: ID!
+  status: Int!
+}
+
+type UpdateUserEventPayload {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+
+  """Account currently authenticated on the Ceramic instance, if set"""
+  viewer: CeramicAccount
+  document: UserEvent!
+  clientMutationId: String
+}
+
+input UpdateUserEventInput {
+  id: ID!
+  content: PartialUserEventInput!
+  options: UpdateOptionsInput
+  clientMutationId: String
+}
+
+input PartialUserEventInput {
+  event: ID
+  status: Int
 }

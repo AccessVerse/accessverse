@@ -1,6 +1,7 @@
 const urls = {
   HOME: '/',
   DASHBOARD: '/dashboard',
+  CREATEPROFILE: '/createprofile',
   BLOGS: '/blogs',
   BLOG: (id: string) => `/blogs/${id}`,
   EVENTS: '/events',
@@ -15,6 +16,7 @@ const urls = {
 const routes = {
   HOME: urls.HOME,
   DASHBOARD: urls.DASHBOARD,
+  CREATEPROFILE: urls.CREATEPROFILE,
   BLOGS: urls.BLOGS,
   BLOG: urls.BLOG(':id'),
   EVENTS: urls.EVENTS,
