@@ -1,0 +1,17 @@
+type Event @loadModel(id: "kjzl6hvfrbw6c737s4yu3ilwl1xxwxdjk8ja7r2vp4n4d0var3b6m4jbqc48y75")
+{
+    id: ID!
+}
+
+type Group @loadModel(id: "kjzl6hvfrbw6c82wzf8mznpcg96qdddo77wfpaxb29pc9yo3n4168bo2ri36lpw")
+{
+    id: ID!
+}
+
+type EventRelation @createModel(accountRelation: LIST, description: "Relate an Event to a Group")
+{
+    eventId: StreamID! @documentReference(model: "Event")
+    event: Event! @relationDocument(property: "eventId")
+    groupId: StreamID! @documentReference(model: "Group")
+    group: Group! @relationDocument(property: "groupId")
+}     

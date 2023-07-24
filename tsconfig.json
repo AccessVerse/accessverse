@@ -21,6 +21,7 @@
       "auth/*": ["./src/auth/*"],
       "components/*": ["./src/components/*"],
       "config/*": ["./src/config/*"],
+      "data/*": ["./src/data/*"],
       "hooks/*": ["./src/hooks/*"],
       "pages/*": ["./src/pages/*"],
       "store/*": ["src/store/*"],
@@ -28,8 +29,6 @@
       "utility/*": ["src/utility/*"]
     }
   },
-  "include": [
-    ".eslintrc.cjs",
-    "src"],
+  "include": [".eslintrc.cjs", "src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

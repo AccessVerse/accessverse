@@ -1,27 +1,23 @@
 import './index.css';
+import 'react-toastify/dist/ReactToastify.css';
 
+import toastProps from 'config/toastProps';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { store } from 'store/store';
 
-// import { ConfigProvider } from 'antd';
-// import antdTheme from 'config/antdTheme';
-// import { themeCheck } from 'config/themeHelper';
-// import toastProps from 'config/toastProps';
-// import { ToastContainer } from 'react-toastify';
 import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <ConfigProvider theme={antdTheme}> */}
       <BrowserRouter>
         <App />
-        {/* <ToastContainer {...toastProps} /> */}
+        <ToastContainer {...toastProps} />
       </BrowserRouter>
-      {/* </ConfigProvider> */}
     </Provider>
   </React.StrictMode>
 );
