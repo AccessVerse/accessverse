@@ -12,6 +12,7 @@ const urls = {
   FEED: '/feed',
   DISCUSSIONS: '/discussions',
   NEW_EVENT: '/events/new',
+  NEW_BLOG: '/blogs/new',
 };
 
 const routes = {
@@ -28,6 +29,7 @@ const routes = {
   FEED: urls.FEED,
   DISCUSSIONS: urls.DISCUSSIONS,
   NEW_EVENT: urls.NEW_EVENT,
+  NEW_BLOG: urls.NEW_BLOG,
 };
 
 export default routes;

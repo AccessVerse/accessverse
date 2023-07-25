@@ -8,6 +8,7 @@ import Event from 'pages/Event';
 import Events from 'pages/Events';
 import Feed from 'pages/Feed';
 import Home from 'pages/Home';
+import NewBlog from 'pages/NewBlog';
 import NewEvent from 'pages/NewEvent';
 import NotFound from 'pages/NotFound';
 import Profile from 'pages/Profile';
@@ -25,6 +26,7 @@ function App() {
         <Route path={routes.SETTINGS} element={<Settings />} />
         <Route path={routes.BLOG} element={<Blog />} />
         <Route path={routes.BLOGS} element={<Blogs />} />
+        <Route path={routes.NEW_BLOG} element={<NewBlog />} />
         <Route path={routes.EVENT} element={<Event />} />
         <Route path={routes.EVENTS} element={<Events />} />
         <Route path={routes.NEW_EVENT} element={<NewEvent />} />

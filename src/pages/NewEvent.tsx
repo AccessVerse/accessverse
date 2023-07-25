@@ -1,7 +1,9 @@
 import { Button, Form, Input, Select, Tooltip } from 'antd';
 import Layout from 'components/common/Layout';
+import routes from 'config/routes';
 import { ChangeEvent, useState } from 'react';
 import { BiWorld } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 
 type EventMode = 'virtual' | 'inperson';
 
@@ -38,6 +40,8 @@ const NewEvent = function NewEvent() {
     date: '1/1/2023',
     limit: 10,
   });
+
+  const navigate = useNavigate();
 
   const [googlePick, setGooglePick] = useState(false);
 
@@ -82,6 +86,7 @@ const NewEvent = function NewEvent() {
               placeholder="AccessVerse Event"
               name="name"
               required
+              value={eventData.name}
               onChange={handleFormChanges}
             />
           </Form.Item>
@@ -96,6 +101,7 @@ const NewEvent = function NewEvent() {
               name="description"
               placeholder="Some description about the event"
               required
+              value={eventData.description}
               onChange={handleFormChanges}
             />
           </Form.Item>
@@ -122,6 +128,7 @@ const NewEvent = function NewEvent() {
                 placeholder="AccessVerse Event"
                 name="venue"
                 required
+                value={eventData.venue}
                 onChange={handleFormChanges}
               />
 
@@ -152,6 +159,7 @@ const NewEvent = function NewEvent() {
                 placeholder="City"
                 name="city"
                 required
+                value={eventData.city}
                 onChange={handleFormChanges}
               />
             </div>
@@ -168,6 +176,7 @@ const NewEvent = function NewEvent() {
                 placeholder="Price for tickets"
                 name="cost"
                 required
+                value={eventData.cost}
                 onChange={handleFormChanges}
               />
             </div>
@@ -183,6 +192,7 @@ const NewEvent = function NewEvent() {
                 placeholder="DD/MM/YYYY"
                 name="date"
                 required
+                value={eventData.date}
                 onChange={handleFormChanges}
               />
             </div>
@@ -199,6 +209,7 @@ const NewEvent = function NewEvent() {
                 placeholder="Enter number of participants"
                 name="limit"
                 required
+                value={eventData.limit}
                 onChange={handleFormChanges}
               />
             </div>
@@ -212,7 +223,9 @@ const NewEvent = function NewEvent() {
             >
               Submit
             </Button>
-            <Button ghost>Cancel</Button>
+            <Button ghost onClick={() => navigate(routes.DASHBOARD)}>
+              Cancel
+            </Button>
           </div>
         </Form>
       </div>

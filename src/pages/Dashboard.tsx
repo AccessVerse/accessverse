@@ -10,7 +10,7 @@ function Dashboard() {
     <Layout page="Dashboard">
       <div className="flex h-full">
         {/* create account and other actions */}
-        <div className="flex justify-end w-full p-2">
+        <div className="flex justify-end w-full p-4">
           <Button
             className="cpbutton"
             onClick={() => navigate(routes.NEW_EVENT)}
