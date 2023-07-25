@@ -20,7 +20,7 @@ const routes = {
   DASHBOARD: urls.DASHBOARD,
   CREATEPROFILE: urls.CREATEPROFILE,
   BLOGS: urls.BLOGS,
-  BLOG: urls.BLOG(':id'),
+  BLOG: (id: string) => urls.BLOG(id),
   EVENTS: urls.EVENTS,
   EVENT: urls.EVENT(':id'),
   // DOCS: urls.DOCS,

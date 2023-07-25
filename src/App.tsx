@@ -24,13 +24,13 @@ function App() {
         <Route path={routes.CREATEPROFILE} element={<CreateProfile />} />
         <Route path={routes.PROFILE} element={<Profile />} />
         <Route path={routes.SETTINGS} element={<Settings />} />
-        <Route path={routes.BLOG} element={<Blog />} />
+        <Route path={routes.BLOG(':id')} element={<Blog />} />
         <Route path={routes.BLOGS} element={<Blogs />} />
         <Route path={routes.NEW_BLOG} element={<NewBlog />} />
         <Route path={routes.EVENT} element={<Event />} />
         <Route path={routes.EVENTS} element={<Events />} />
         <Route path={routes.NEW_EVENT} element={<NewEvent />} />
-        <Route path={routes.DOCS} element={<Docs />} />
+        {/* <Route path={routes.DOCS} element={<Docs />} /> */}
         <Route path={routes.FEED} element={<Feed />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
