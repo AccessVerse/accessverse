@@ -33,11 +33,11 @@ const sections = [
         logo: <TfiWrite />,
         route: routes.BLOGS,
       },
-      {
-        name: 'Docs',
-        logo: <RiFilePaper2Line size={20} />,
-        route: routes.DOCS,
-      },
+      // {
+      //   name: 'Docs',
+      //   logo: <RiFilePaper2Line size={20} />,
+      //   route: routes.DOCS,
+      // },
     ],
   },
   {
