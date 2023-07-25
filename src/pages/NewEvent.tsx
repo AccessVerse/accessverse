@@ -1,9 +1,14 @@
+import { useMutation } from '@apollo/client';
 import { Button, Form, Input, Select, Tooltip } from 'antd';
 import Layout from 'components/common/Layout';
 import routes from 'config/routes';
 import { ChangeEvent, useState } from 'react';
 import { BiWorld } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
+
+import client from '../apolloClient';
+// import client from 'src/apolloClient';
+import CREATE_EVENT from '../mutations/createEvent';
 
 type EventMode = 'virtual' | 'inperson';
 
@@ -13,9 +18,9 @@ type FormData = {
   mode: EventMode;
   venue: string;
   city: string;
-  cost: number;
+  cost: string;
   date: string;
-  limit: number;
+  limit: string;
 };
 
 const eventModes = [
@@ -36,14 +41,16 @@ const NewEvent = function NewEvent() {
     mode: 'inperson',
     venue: '',
     city: '',
-    cost: 0,
+    cost: '0',
     date: '1/1/2023',
-    limit: 10,
+    limit: '10',
   });
 
   const navigate = useNavigate();
-
   const [googlePick, setGooglePick] = useState(false);
+  const [createEvent, { loading, error }] = useMutation(CREATE_EVENT, {
+    client,
+  });
 
   const handleFormChanges = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -61,11 +68,39 @@ const NewEvent = function NewEvent() {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // TODO: api call for the event form submit
+    const mode = eventData.mode === 'inperson' ? 0 : 1;
     console.log(eventData);
+    try {
+      const event = await createEvent({
+        variables: {
+          input: {
+            content: {
+              name: eventData.name,
+              city: eventData.city,
+              cost: +eventData.cost,
+              mode,
+              venue: eventData.venue,
+              status: 1,
+              maxLimit: +eventData.limit,
+              description: eventData.description,
+              creationDate: '2023-07-25T12:34:56.789Z',
+              dateTime: '2023-08-25T12:34:56.789Z',
+            },
+          },
+        },
+        client,
+      });
+      console.log('Event creation successful- ', event);
+      navigate(routes.DASHBOARD);
+    } catch (err) {
+      console.log('Error occured while creating event: ', err);
+    }
     // redirect to home page
   };
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <Layout page="New Event">
@@ -86,7 +121,6 @@ const NewEvent = function NewEvent() {
               placeholder="AccessVerse Event"
               name="name"
               required
-              value={eventData.name}
               onChange={handleFormChanges}
             />
           </Form.Item>
@@ -101,7 +135,6 @@ const NewEvent = function NewEvent() {
               name="description"
               placeholder="Some description about the event"
               required
-              value={eventData.description}
               onChange={handleFormChanges}
             />
           </Form.Item>
@@ -128,7 +161,6 @@ const NewEvent = function NewEvent() {
                 placeholder="AccessVerse Event"
                 name="venue"
                 required
-                value={eventData.venue}
                 onChange={handleFormChanges}
               />
 
@@ -159,7 +191,6 @@ const NewEvent = function NewEvent() {
                 placeholder="City"
                 name="city"
                 required
-                value={eventData.city}
                 onChange={handleFormChanges}
               />
             </div>
@@ -176,7 +207,6 @@ const NewEvent = function NewEvent() {
                 placeholder="Price for tickets"
                 name="cost"
                 required
-                value={eventData.cost}
                 onChange={handleFormChanges}
               />
             </div>
@@ -192,7 +222,6 @@ const NewEvent = function NewEvent() {
                 placeholder="DD/MM/YYYY"
                 name="date"
                 required
-                value={eventData.date}
                 onChange={handleFormChanges}
               />
             </div>
@@ -209,7 +238,6 @@ const NewEvent = function NewEvent() {
                 placeholder="Enter number of participants"
                 name="limit"
                 required
-                value={eventData.limit}
                 onChange={handleFormChanges}
               />
             </div>
@@ -223,9 +251,7 @@ const NewEvent = function NewEvent() {
             >
               Submit
             </Button>
-            <Button ghost onClick={() => navigate(routes.DASHBOARD)}>
-              Cancel
-            </Button>
+            <Button ghost>Cancel</Button>
           </div>
         </Form>
       </div>
