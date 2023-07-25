@@ -1,3 +1,4 @@
+#unused
 type EventRelation @loadModel(id: "kjzl6hvfrbw6casjt7lcrqcq5z85ppdoy5jidznninvgdvgqqx4xoayo64fxmqz") {
   id: ID!
 }

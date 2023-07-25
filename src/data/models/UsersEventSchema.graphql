@@ -1,0 +1,5 @@
+type UserEvent @createModel(accountRelation: LIST, description:"User's events"){
+    attendee: DID! @documentAccount
+    event: ID!
+    status: Int!
+}

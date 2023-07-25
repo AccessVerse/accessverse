@@ -115,3 +115,10 @@ video {
   height: 100vh;
   object-fit: cover;
 }
+
+.ant-btn[disabled] {
+  color: #8c8c8c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

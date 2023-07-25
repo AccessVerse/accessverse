@@ -1,9 +1,19 @@
-type Event @createModel(accountRelation: LIST, description: "Event model"){
+type EventAttendee {
+    user: String! @string(minLength:1, maxLength:150)
+    status: Int!
+}
+
+type Event @createModel(accountRelation: LIST, description: "Event model") {
     creator: DID! @documentAccount
     name: String! @string(minLength: 2, maxLength: 50)
     description: String! @string(minLength: 2, maxLength: 200)
+    mode: Int!
+    venue: String! @string(minLength: 1, maxLength: 200)
+    city: String! @string(minLength: 1, maxLength: 200)
     creationDate: DateTime!
+    cost: Int!
     status: Int!
-    DateTime: DateTime!
-    UserLimit: Int!
+    dateTime: DateTime!
+    attendees: [EventAttendee] @list(minLength: 0, maxLength: 500)
+    maxLimit: Int!
 }
