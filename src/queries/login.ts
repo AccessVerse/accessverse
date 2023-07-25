@@ -7,6 +7,7 @@ const LOGIN_QUERY = gql`
       user {
         id
         name
+        email
       }
     }
   }
