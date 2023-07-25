@@ -23,6 +23,7 @@
     "@composedb/client": "^0.4.4",
     "@didtools/pkh-ethereum": "^0.3.0",
     "@reduxjs/toolkit": "^1.9.5",
+    "@uiw/react-md-editor": "^3.23.3",
     "antd": "^5.6.4",
     "axios": "^1.4.0",
     "did-session": "^2.0.1",
