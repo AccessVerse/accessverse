@@ -11,6 +11,7 @@ const urls = {
   PROFILE: '/profile',
   FEED: '/feed',
   DISCUSSIONS: '/discussions',
+  NEW_EVENT: '/events/new',
 };
 
 const routes = {
@@ -26,6 +27,7 @@ const routes = {
   PROFILE: urls.PROFILE,
   FEED: urls.FEED,
   DISCUSSIONS: urls.DISCUSSIONS,
+  NEW_EVENT: urls.NEW_EVENT,
 };
 
 export default routes;

@@ -7,8 +7,18 @@ type Props = {
   children: ReactNode;
 };
 
+const demoUser = {
+  viewer: {
+    user: {
+      name: 'Guest Account',
+    },
+  },
+};
+
 function Layout({ children, page }: Props) {
-  const user = JSON.parse(localStorage.getItem('accessverseUser') || '');
+  let user = localStorage.getItem('accessverseUser');
+  user = user && typeof user === 'string' ? JSON.parse(user) : demoUser;
+
   return (
     <div className="flex w-screen">
       <SideNav />
@@ -18,7 +28,8 @@ function Layout({ children, page }: Props) {
             {page}
           </span>
 
-          <span>{`Hi ${user?.viewer?.user?.name} :)`}</span>
+          {/* @ts-ignore */}
+          <span>{`Hi ${user?.viewer?.user?.name}`}</span>
         </div>
         {children}
       </div>
